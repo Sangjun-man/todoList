@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+.backgroundImg {
+  width: 70%;
+  height: 100%;
+  background-image: url("https://source.unsplash.com/1600x900/?book");
+  background-size: cover;
+}
+
+.loginForm {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.textField {
+  display: flex;
+  margin: 0 0 0rem 0;
+  align-items: center;
+}
+.textField p {
+  width: 3rem;
+  text-align: right;
+  margin: 1rem;
+}
+.textField input {
+  height: 2rem;
+}
+#loginButton {
+  margin-top: 0.5rem;
+  width: 6rem;
+  height: 2.5rem;
+}
