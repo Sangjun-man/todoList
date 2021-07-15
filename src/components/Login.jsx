@@ -5,8 +5,8 @@ import styles from "./Login.module.css";
 const { container, backgroundImg, loginForm, textField, loginButton } = styles;
 const Login = (props) => {
   const history = useHistory();
-  const onClick = () => {
-    history.push("/todolist");
+  const onClick = (id) => {
+    history.push(`/${id}`);
   };
 
   return (
@@ -21,9 +21,19 @@ const Login = (props) => {
           <p>PW : </p>
           <input />
         </div>
-        <button id={loginButton} onClick={onClick}>
-          LOGIN
-        </button>
+        <div>
+          <button
+            className={loginButton}
+            onClick={() => {
+              onClick("signup");
+            }}
+          >
+            Sign Up!
+          </button>
+          <button className={loginButton} onClick={() => onClick("todolist")}>
+            LOGIN
+          </button>
+        </div>
       </div>
     </div>
   );

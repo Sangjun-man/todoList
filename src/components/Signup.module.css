@@ -1,0 +1,72 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://source.unsplash.com/1600x900/?texts");
+  background-size: cover;
+}
+
+.textForm {
+  width: 50%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: white;
+  align-items: center;
+}
+.textForm > h1 {
+  font-size: 3rem;
+}
+.textField {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  margin-left: 5rem;
+}
+.textField > div {
+  margin: 0 0 2.5rem 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.textField > div > p {
+  margin: 0 2rem 0 0;
+  flex-shrink: 0;
+}
+.textField > div > input {
+  border-width: 0 0 2px 0;
+  border-color: white white black white;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 10rem;
+}
+.textField > div > input:focus {
+  outline: none;
+  font-size: 1.1rem;
+  border-width: 0 0 3px 0;
+  border-color: white white #5a99ff white;
+  box-shadow: 3px 3px 3px 1px rgba(200, 200, 200, 0.5);
+}
+.signupButton {
+  border: 1px solid #2a2a2a;
+  border-radius: 3px;
+  margin: 3rem auto auto auto;
+  width: 10rem;
+  height: 3rem;
+  background-color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.signupButton:hover {
+  color: white;
+  background-color: #0074ed;
+  transition: background-color 0.7s, color 0.7s;
+}
+.signupButton:active {
+  background-color: #5a99ff;
+  transition: background-color 0.1s;
+}
