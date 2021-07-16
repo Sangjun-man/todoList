@@ -4,10 +4,40 @@
   background-image: url("https://source.unsplash.com/1600x900/?plan");
   background-size: cover;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  position: relative;
+}
+.menuBar {
+  width: 100%;
+  height: 60px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+}
+.menuBar::after {
+  width: 60px;
+  height: 100%;
+  content: "";
+  background-color: white;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  right: -60;
+  z-index: 1;
+}
+.logOut {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  height: 100%;
+  width: auto;
+  cursor: pointer;
+  z-index: 2;
 }
 .todoContainer {
+  margin: auto;
   box-sizing: border-box;
   width: 27rem;
   height: 36rem;
@@ -28,11 +58,12 @@
 }
 .todoInput input {
   flex: 1;
+  font-size: 1.2rem;
 }
 .todoInput button {
   box-sizing: border-box;
   padding: 0.9rem 1rem 1rem 1rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 .todoItem {
   justify-content: space-between;
@@ -54,13 +85,32 @@
 
 .todoContents {
   flex: 1;
-  text-align: right;
+  width: auto;
+  text-align: center;
   margin: 0.6rem 0.7rem;
+  cursor: pointer;
+}
+.todoEditInput {
+  margin: 0 2rem;
+  flex: 1;
+  border-width: 0 0 1px 0;
+  border-color: white white black white;
+  font-size: 1.2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todoEditIcon {
+  height: 1.3rem;
+  width: 1.3rem;
+  margin: 0.2rem;
+
   cursor: pointer;
 }
 .todoDelete {
   height: 1.3rem;
-  width: 1.3rem;
+  margin: 0.2rem;
   display: flex;
   justify-content: center;
   align-items: center;

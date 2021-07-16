@@ -1,6 +1,13 @@
 import React from "react";
+import { useHistory } from "react-router";
 import styles from "./Signup.module.css";
+
 const Signup = (props) => {
+  const history = useHistory();
+  const onClick = () => {
+    history.push("/");
+  };
+
   const { container, textForm, textField, signupButton } = styles;
   return (
     <div className={container}>
@@ -27,8 +34,13 @@ const Signup = (props) => {
           </div>
         </div>
 
-        <button className={signupButton} id="submit">
-          {" "}
+        <button
+          onClick={() => {
+            onClick();
+          }}
+          className={signupButton}
+          id="submit"
+        >
           가입하기{" "}
         </button>
       </div>
