@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./TodoList.module.css";
 import {
   BsTrash,
@@ -24,11 +24,15 @@ const {
   logOut,
 } = styles;
 
-const TodoItem = ({ todo, onDelete, onToggle, onEdit, onChange }) => {
+const TodoItem = ({ todo, onDelete, onToggle, onEdit, getTodoFunc }) => {
   const [newContent, setNewContent] = useState(todo.content);
-
   const onNewContentChange = (e) => {
     setNewContent(e.target.value);
+  }; //todo Item마다 input의 value 상태유지
+  const [inEdit, setInEdit] = useState(false);
+  const handleOnEdit = ({ id, content }) => {
+    onEdit({ id, content });
+    setInEdit(false);
   };
 
   return (
@@ -39,22 +43,10 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit, onChange }) => {
           onToggle(todo.id);
         }}
       >
-        {todo.checked && <BsCheck />}
+        {todo.isCompleted && <BsCheck />}
       </div>
-
-      {todo.edit === false ? (
-        <>
-          <div className={todoContents}>{todo.content}</div>
-          <div
-            className={todoEditIcon}
-            onClick={() => {
-              onEdit(todo.id);
-            }}
-          >
-            <BsPencilSquare />
-          </div>
-        </>
-      ) : (
+      {/* 편집 상태인지 아닌지 확인 */}
+      {inEdit ? (
         <>
           <input
             onChange={onNewContentChange}
@@ -65,10 +57,29 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit, onChange }) => {
             className={todoEditIcon}
             key={todo.id}
             onClick={() => {
-              onChange(todo.id, newContent);
+              handleOnEdit({ id: todo.id, content: newContent });
             }}
           >
             <BsPencil />
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            className={todoContents}
+            onClick={() => {
+              setInEdit(true);
+            }}
+          >
+            {todo.content}
+          </div>
+          <div
+            className={todoEditIcon}
+            onClick={() => {
+              setInEdit(true);
+            }}
+          >
+            <BsPencilSquare />
           </div>
         </>
       )}
@@ -84,91 +95,40 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit, onChange }) => {
   );
 };
 
-const TodoList = (props) => {
+const TodoList = ({
+  todoList,
+  onCreate,
+  onDelete,
+  onToggle,
+  onEdit,
+  onLogout,
+  onEditModeChange,
+}) => {
   const history = useHistory();
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      content: "테스트1",
-      checked: false,
-      edit: false,
-    },
-    {
-      id: 2,
-      content: "테스트2",
-      checked: false,
-      edit: false,
-    },
-    {
-      id: 3,
-      content: "테스트33333",
-      checked: true,
-      edit: false,
-    },
-  ]);
   const inputRef = useRef();
-  const onCreate = (content) => {
-    setTodos(
-      todos.concat({
-        id: Date.now(),
-        content: content,
-        checked: false,
-        edit: false,
-      })
-    );
-  };
-  const onDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const onToggle = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo
-      )
-    );
-  };
-
-  //todo 수정 -> 조건부 랜더링
-  //랜더링할때 edit상태인지 아닌지 판별해서 랜더링
-  //edit 속성 false면 그냉 div태그
-  //edit 속성 ture 면 input 태그
-  const onEdit = (id) => {
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, edit: true } : todo))
-    );
-  };
-  const onChange = (id, content) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, edit: false, content: content } : todo
-      )
-    );
-  };
-
-  const onLogout = () => {
-    history.push("./");
-  };
+  // useEffect(() => {
+  //   console.log(todoList[0]);
+  //   console.log(todoList.map((todo) => todo.content));
+  // }, [todoList]);
 
   return (
     <div className={container}>
       <div
         className={menuBar}
         onClick={() => {
-          onLogout();
+          onLogout(history);
         }}
       >
         <BsBoxArrowInRight className={logOut} />
       </div>
       <div className={todoContainer}>
         <div className={todoList}>
-          {todos.map((todo) => (
+          {todoList.map((todo) => (
             <TodoItem
               todo={todo}
               onDelete={onDelete}
               onToggle={onToggle}
               onEdit={onEdit}
-              onChange={onChange}
             />
           ))}
         </div>

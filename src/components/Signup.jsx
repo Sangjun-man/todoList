@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useHistory } from "react-router";
 import styles from "./Signup.module.css";
 
-const Signup = (props) => {
-  const history = useHistory();
-  const onClick = () => {
-    history.push("/");
+const { container, textForm, textField, signupButton } = styles;
+const Signup = ({ onSignup }) => {
+  const username = useRef();
+  const password = useRef();
+
+  const handleSignup = () => {
+    onSignup({
+      username: username.current.value,
+      password: password.current.value,
+    });
+  };
+  const onKeyPress = (e) => {
+    if (e.key == "Enter") {
+      handleSignup();
+    }
   };
 
-  const { container, textForm, textField, signupButton } = styles;
   return (
     <div className={container}>
       <div className={textForm}>
@@ -16,13 +26,18 @@ const Signup = (props) => {
         <div className={textField}>
           <div>
             <p> Id :</p>
-            <input id="id" />
+            <input ref={username} type="text" id="id" />
           </div>
           <div>
             <p> Password :</p>
-            <input id="password" />
+            <input
+              ref={password}
+              type="password"
+              id="password"
+              onKeyPress={onKeyPress}
+            />
           </div>
-          <div>
+          {/* <div>
             <p> Nickname :</p>
             <input id="nickname" />
           </div>
@@ -31,16 +46,10 @@ const Signup = (props) => {
             <input id="email" />
             @
             <input id="domain" />
-          </div>
+          </div> */}
         </div>
 
-        <button
-          onClick={() => {
-            onClick();
-          }}
-          className={signupButton}
-          id="submit"
-        >
+        <button onClick={handleSignup} className={signupButton} id="submit">
           가입하기{" "}
         </button>
       </div>

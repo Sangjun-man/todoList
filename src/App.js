@@ -1,14 +1,14 @@
 import { BrowserRouter, Route } from "react-router-dom";
-import Login from "./components/Login";
-import TodoList from "./components/TodoList";
-import Signup from "./components/Signup";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import TodoListPage from "./pages/TodoList";
 
 function App() {
   return (
     <BrowserRouter>
-      <Route exact path="/" component={Login}></Route>
-      <Route path="/signup" component={Signup}></Route>
-      <Route path="/todolist" component={TodoList}></Route>
+      <Route exact path="/" component={LoginPage}></Route>
+      <Route path="/signup" component={SignupPage}></Route>
+      <Route path="/todolist" component={TodoListPage}></Route>
     </BrowserRouter>
   );
 }
